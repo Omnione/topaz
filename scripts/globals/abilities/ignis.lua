@@ -21,12 +21,12 @@ function onUseAbility(player,target,ability)
     local maxRuneCount
     local mainDMG      = target:getWeaponDmg()
     local mainDRank    = target:getWeaponDmgRank()
-    local mainSkillLvl = target:getWeaponSkillLevel(dsp.slot.MAIN)
+    local mainSkillLvl = target:getWeaponSkillLevel(tpz.slot.MAIN)
     local finalDmg     = 0
 
 
 
-    if (target:getMainJob() == dsp.job.RUN) then
+    if (target:getMainJob() == tpz.job.RUN) then
         level = target:getMainLvl()
     else
         level = target:getSubLvl()
@@ -43,8 +43,8 @@ function onUseAbility(player,target,ability)
 
     finalDmg = ((mainSkillLvl / mainDMG) * mainDRank) / maxRuneCount
 
-    if target:getActiveRunes() > 0 and target:hasStatusEffect(dsp.effect.IGNIS) then
-        local effect = player:getStatusEffect(dsp.effect.IGNIS)
+    if target:getActiveRunes() > 0 and target:hasStatusEffect(tpz.effect.IGNIS) then
+        local effect = player:getStatusEffect(tpz.effect.IGNIS)
         finalDmg = finalDmg + effect:getPower()
     end
 
@@ -52,8 +52,8 @@ function onUseAbility(player,target,ability)
         target:removeOldestRune()
     end
 
-    target:addStatusEffect(dsp.effect.IGNIS,finalDmg,3,180)
+    target:addStatusEffect(tpz.effect.IGNIS,finalDmg,3,180)
     printf("final damage for en effect ignis = %s", finalDmg)
 
-    return dsp.effect.IGNIS
+    return tpz.effect.IGNIS
 end

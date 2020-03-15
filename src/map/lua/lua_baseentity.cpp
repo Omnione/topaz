@@ -12582,6 +12582,60 @@ inline int32 CLuaBaseEntity::updateAttachments(lua_State* L)
 }
 
 /************************************************************************
+*  Function: getActiveRunes()
+*  Purpose : Get the amount of active runes
+*  Example : if (target:getActiveRunes() == 3) then
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::getActiveRunes(lua_State* L)
+{
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetActiveRunes());
+
+    return 1;
+}
+
+/************************************************************************
+*  Function: removeOldestRune()
+*  Purpose : Removes the oldest rune
+*  Example : target:removeOldestRune()
+*  Notes   : Often used if (target:getActiveRunes() == maxRuneCount)
+************************************************************************/
+
+inline int32 CLuaBaseEntity::removeOldestRune(lua_State* L)
+{
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveOldestRune();
+
+    return 0;
+}
+
+/************************************************************************
+*  Function: removeAllRunes()
+*  Purpose : Removes all runes from the player
+*  Example : target:removeAllrunes()
+*  Notes   : Used mainly for abilities that expend runes
+************************************************************************/
+
+inline int32 CLuaBaseEntity::removeAllRunes(lua_State* L)
+{
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveAllRunes();
+
+    return 0;
+}
+
+/************************************************************************
 *  Function: setMobLevel()
 *  Purpose : Updates the monsters level and recalculates stats
 *  Example : mob:setMobLevel(125)
@@ -14594,6 +14648,9 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestManeuver),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllManeuvers),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateAttachments),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getActiveRunes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, removeOldestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, removeAllRunes),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity, spawnTrust),
 
