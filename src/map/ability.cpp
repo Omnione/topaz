@@ -32,6 +32,11 @@ bool CAbility::isPetAbility()
     return getID() >= ABILITY_HEALING_RUBY;
 }
 
+bool CAbility::isRuneAbility()
+{
+    return getID() >= ABILITY_ELEMENTAL_SFORZO && getID() < ABILITY_WIDENED_COMPASS || getID() == ABILITY_WARD || getID() == ABILITY_EFFUSION;
+}
+
 bool CAbility::isAoE()
 {
     return m_aoe == 1;

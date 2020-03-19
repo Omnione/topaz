@@ -1057,6 +1057,7 @@ uint8 CStatusEffectContainer::GetActiveRunes()
             count++;
         }
     }
+    
     return count;
 }
 
@@ -1082,6 +1083,98 @@ void CStatusEffectContainer::RemoveOldestRune()
     {
         RemoveStatusEffect(index, true);
     }
+}
+
+struct RuneList_t
+{
+    CStatusEffect* effect;
+    uint8 element;
+};
+
+std::vector<RuneList_t*> g_RuneList;
+
+uint8 CStatusEffectContainer::GetMaxRuneElement()
+{
+    g_RuneList.clear();
+    uint8 maxElement = 0;
+    int index = 0;
+    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+    {
+        CStatusEffect* PStatusEffect = m_StatusEffectList.at(i);
+        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
+            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE &&
+            !PStatusEffect->deleted)
+        {
+            uint8 element = 0;
+            RuneList_t* Rune = new RuneList_t();
+            Rune->effect = PStatusEffect;
+            switch (PStatusEffect->GetStatusID())
+            {
+            case EFFECT_IGNIS:
+                element = 1;
+                break;
+            case EFFECT_GELUS:
+                element = 5;
+                break;
+            case EFFECT_FLABRA:
+                element = 4;
+                break;
+            case EFFECT_TELLUS:
+                element = 2;
+                break;
+            case EFFECT_SULPOR:
+                element = 6;
+                break;
+            case EFFECT_UNDA:
+                element = 3;
+                break;
+            case EFFECT_LUX:
+                element = 7;
+                break;
+            case EFFECT_TENEBRAE:
+                element = 8;
+                break;
+            default:
+                element = 0;
+                break;
+            }
+            Rune->element = element;
+            g_RuneList.push_back(Rune);
+        }
+    }
+
+    if (g_RuneList.size() > 2)
+    {
+        if (g_RuneList.at(0)->element == g_RuneList.at(1)->element || g_RuneList.at(0)->element == g_RuneList.at(2)->element)
+        {
+            maxElement = g_RuneList.at(0)->element;
+        }
+        else if (g_RuneList.at(1)->element == g_RuneList.at(2)->element)
+        {
+            maxElement = g_RuneList.at(1)->element;
+        }
+        else
+        {
+            maxElement = g_RuneList.at(0)->element;
+        }
+    }
+    else if (g_RuneList.size() == 2)
+    {
+        if (g_RuneList.at(0)->element == g_RuneList.at(1)->element)
+        {
+            maxElement = g_RuneList.at(0)->element;
+        }
+        else
+        {
+            maxElement = g_RuneList.at(0)->element;
+        }
+    }
+    else
+    {
+        maxElement = g_RuneList.at(0)->element;
+    }
+
+    return maxElement;
 }
 
 void CStatusEffectContainer::RemoveAllRunes()

@@ -656,6 +656,7 @@ public:
     CAbility(uint16 id);
 
     bool        isPetAbility();
+    bool        isRuneAbility();
     bool        isAoE();
     bool        isConal();
 

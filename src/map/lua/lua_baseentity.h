@@ -616,9 +616,10 @@ public:
     int32 updateAttachments(lua_State*);
 
     int32 getActiveRunes(lua_State*);
+    int32 getHighestRuneElement(lua_State* L);
     int32 removeOldestRune(lua_State* L);
     int32 removeAllRunes(lua_State*);
-
+	
     // Mob Entity-Specific
     int32 setMobLevel(lua_State*);
     int32 getSystem(lua_State*);

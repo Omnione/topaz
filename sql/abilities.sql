@@ -300,7 +300,8 @@ INSERT INTO `abilities` VALUES (346,'Sulpor',22,5,1,5,92,0,0,295,2000,0,6,20.0,0
 INSERT INTO `abilities` VALUES (347,'Unda',22,5,1,5,92,0,0,296,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (348,'Lux',22,5,1,5,92,0,0,297,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (349,'Tenebrae',22,5,1,5,92,0,0,298,2000,0,6,20.0,0,1,300,0,0,'SOA');
--- INSERT INTO `abilities` VALUES (350, 'Vallation',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
+--                             abilityId,name,job,level,validTarget,recastTime,recastId,message1,message2,animation,animationTime,castTime,actionType,range,isAOE,CE,VE,meritModID,addType,content_tag
+INSERT INTO `abilities` VALUES (350,'Vallation',22,10,1,180,23,0,0,366,2000,0,6,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (351,'Swordplay',22,20,1,300,0,0,0,299,2000,0,6,20.0,0,1,300,0,0,'SOA');
 -- INSERT INTO `abilities` VALUES (352,'Lunge',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
 -- INSERT INTO `abilities` VALUES (353,'Pflug',22,20,1,300,0,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');

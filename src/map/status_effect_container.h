@@ -90,6 +90,7 @@ public:
     void RemoveAllManeuvers();
 
     uint8 GetActiveRunes();
+    uint8 GetMaxRuneElement();
     void RemoveOldestRune();
     void RemoveAllRunes();
 

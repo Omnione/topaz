@@ -12635,6 +12635,21 @@ inline int32 CLuaBaseEntity::removeAllRunes(lua_State* L)
     return 0;
 }
 
+inline int32 CLuaBaseEntity::getHighestRuneElement(lua_State* L)
+{
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    if (PEntity->StatusEffectContainer->GetActiveRunes() > 0)
+    {
+        lua_pushinteger(L, PEntity->StatusEffectContainer->GetMaxRuneElement());
+        return 1;
+    }
+
+    return 0;
+}
+
 /************************************************************************
 *  Function: setMobLevel()
 *  Purpose : Updates the monsters level and recalculates stats
@@ -14648,9 +14663,10 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestManeuver),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllManeuvers),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateAttachments),
-    LUNAR_DECLARE_METHOD(CLuaBaseEntity, getActiveRunes),
-    LUNAR_DECLARE_METHOD(CLuaBaseEntity, removeOldestRune),
-    LUNAR_DECLARE_METHOD(CLuaBaseEntity, removeAllRunes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveRunes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getHighestRuneElement),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllRunes),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity, spawnTrust),
 

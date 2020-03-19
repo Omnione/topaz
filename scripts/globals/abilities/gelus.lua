@@ -1,6 +1,6 @@
 -----------------------------------
--- Ability: Ignis
--- Increases resistance against ice and deals fire damage.
+-- Ability: Gelus
+-- Increases resistance against wind and deals ice damage.
 -- Obtained: Rune Fencer Level 5
 -- Recast Time: 0:05
 -- Duration: 5:00
@@ -43,8 +43,8 @@ function onUseAbility(player,target,ability)
 
     finalDmg = ((mainSkillLvl / mainDMG) * mainDRank) / maxRuneCount
 
-    if target:getActiveRunes() > 0 and target:hasStatusEffect(tpz.effect.IGNIS) then
-        local effect = player:getStatusEffect(tpz.effect.IGNIS)
+    if target:getActiveRunes() > 0 and target:hasStatusEffect(tpz.effect.GELUS) then
+        local effect = player:getStatusEffect(tpz.effect.GELUS)
         finalDmg = finalDmg + effect:getPower()
     end
 
@@ -52,8 +52,8 @@ function onUseAbility(player,target,ability)
         target:removeOldestRune()
     end
 
-    target:addStatusEffect(tpz.effect.IGNIS,finalDmg,3,180)
-    printf("final damage for en effect IGNIS = %s", finalDmg)
+    target:addStatusEffect(tpz.effect.GELUS,finalDmg,3,180)
+    printf("final damage for en effect gelus = %s", finalDmg)
 
-    return tpz.effect.IGNIS
+    return tpz.effect.GELUS
 end

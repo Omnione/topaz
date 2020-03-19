@@ -1,6 +1,6 @@
 -----------------------------------
--- Ability: Ignis
--- Increases resistance against ice and deals fire damage.
+-- Ability: Unda
+-- Increases resistance against fire and deals water damage.
 -- Obtained: Rune Fencer Level 5
 -- Recast Time: 0:05
 -- Duration: 5:00
@@ -43,8 +43,8 @@ function onUseAbility(player,target,ability)
 
     finalDmg = ((mainSkillLvl / mainDMG) * mainDRank) / maxRuneCount
 
-    if target:getActiveRunes() > 0 and target:hasStatusEffect(tpz.effect.IGNIS) then
-        local effect = player:getStatusEffect(tpz.effect.IGNIS)
+    if target:getActiveRunes() > 0 and target:hasStatusEffect(tpz.effect.UNDA) then
+        local effect = player:getStatusEffect(tpz.effect.UNDA)
         finalDmg = finalDmg + effect:getPower()
     end
 
@@ -52,8 +52,8 @@ function onUseAbility(player,target,ability)
         target:removeOldestRune()
     end
 
-    target:addStatusEffect(tpz.effect.IGNIS,finalDmg,3,180)
-    printf("final damage for en effect IGNIS = %s", finalDmg)
+    target:addStatusEffect(tpz.effect.UNDA,finalDmg,3,180)
+    printf("final damage for en effect UNDA = %s", finalDmg)
 
-    return tpz.effect.IGNIS
+    return tpz.effect.UNDA
 end
