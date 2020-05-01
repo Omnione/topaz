@@ -615,10 +615,13 @@ public:
     int32 removeAllManeuvers(lua_State*);
     int32 updateAttachments(lua_State*);
 
-    int32 getActiveRunes(lua_State*);
-    int32 getHighestRuneElement(lua_State* L);
+    int32 getActiveRuneCount(lua_State*);
+    int32 getMaxRuneElement(lua_State* L);
+    int32 getMaxRuneElementCount(lua_State* L);
+    int32 calculateRuneDamage(lua_State* L);
     int32 removeOldestRune(lua_State* L);
     int32 removeAllRunes(lua_State*);
+
 	
     // Mob Entity-Specific
     int32 setMobLevel(lua_State*);

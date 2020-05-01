@@ -784,11 +784,14 @@ enum class Mod
     CONQUEST_REGION_BONUS     = 934, // Increases the influence points awarded to the player's nation when receiving conquest points
     CAMPAIGN_BONUS            = 935, // Increases the evaluation for allied forces by percentage
 
+    RUNE1                     = 958, // stores the type of RUNE active (0 if nothing).
+    RUNE2                     = 959, // stores the type of RUNE active (0 if nothing).
+    RUNE3                     = 960, // stores the type of RUNE active (0 if nothing).
+    RUNE_DMG                  = 961, // stores the base damage of the RUNE effect before reductions.
+    
+
     // The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     // 570 through 825 used by WS DMG mods these are not spares.
-    // SPARE = 958, // stuff
-    // SPARE = 959, // stuff
-    // SPARE = 960, // stuff
 };
 
 //temporary workaround for using enum class as unordered_map key until compilers support it

@@ -1045,62 +1045,22 @@ void CStatusEffectContainer::RemoveAllManeuvers()
 }
 
 // Runefencer runes
-uint8 CStatusEffectContainer::GetActiveRunes()
-{
-    uint8 count = 0;
-    for (auto PStatusEffect : m_StatusEffectList)
-    {
-        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
-            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE &&
-            !PStatusEffect->deleted)
-        {
-            count++;
-        }
-    }
-    
-    return count;
-}
-
-void CStatusEffectContainer::RemoveOldestRune()
-{
-    CStatusEffect* oldest = nullptr;
-    int index = 0;
-    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
-    {
-        CStatusEffect* PStatusEffect = m_StatusEffectList.at(i);
-        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
-            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE &&
-            !PStatusEffect->deleted)
-        {
-            if (!oldest || PStatusEffect->GetStartTime() < oldest->GetStartTime())
-            {
-                oldest = PStatusEffect;
-                index = i;
-            }
-        }
-    }
-    if (oldest)
-    {
-        RemoveStatusEffect(index, true);
-    }
-}
 
 struct RuneList_t
 {
     CStatusEffect* effect;
     uint8 element;
+    uint16 id;
 };
 
 std::vector<RuneList_t*> g_RuneList;
 
-uint8 CStatusEffectContainer::GetMaxRuneElement()
+uint8 CStatusEffectContainer::GetActiveRunes()
 {
     g_RuneList.clear();
-    uint8 maxElement = 0;
-    int index = 0;
-    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+    uint8 count = 0;
+    for (auto PStatusEffect : m_StatusEffectList)
     {
-        CStatusEffect* PStatusEffect = m_StatusEffectList.at(i);
         if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
             PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE &&
             !PStatusEffect->deleted)
@@ -1138,43 +1098,92 @@ uint8 CStatusEffectContainer::GetMaxRuneElement()
                 element = 0;
                 break;
             }
+            count++;
+            Rune->id = PStatusEffect->GetStatusID();
             Rune->element = element;
             g_RuneList.push_back(Rune);
         }
     }
+    return count;
+}
 
-    if (g_RuneList.size() > 2)
+void CStatusEffectContainer::RemoveOldestRune()
+{
+    CStatusEffect* oldest = nullptr;
+    int index = 0;
+    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
     {
-        if (g_RuneList.at(0)->element == g_RuneList.at(1)->element || g_RuneList.at(0)->element == g_RuneList.at(2)->element)
+        CStatusEffect* PStatusEffect = m_StatusEffectList.at(i);
+        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
+            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE &&
+            !PStatusEffect->deleted)
         {
-            maxElement = g_RuneList.at(0)->element;
+            if (!oldest || PStatusEffect->GetStartTime() < oldest->GetStartTime())
+            {
+                oldest = PStatusEffect;
+                index = i;
+            }
         }
-        else if (g_RuneList.at(1)->element == g_RuneList.at(2)->element)
+    }
+    if (oldest)
+    {
+        RemoveStatusEffect(index, true);
+    }
+}
+
+EFFECT CStatusEffectContainer::GetMaxRuneEffect()
+{
+    EFFECT maxElement = EFFECT_NONE;
+    GetActiveRunes();
+    if (g_RuneList.size() != 0)
+    {
+        auto runeCount = g_RuneList.size();
+
+        if (runeCount > 2)
         {
-            maxElement = g_RuneList.at(1)->element;
+            if (g_RuneList.at(0)->element == g_RuneList.at(1)->element || g_RuneList.at(0)->element == g_RuneList.at(2)->element)
+            {
+                maxElement = g_RuneList.at(0)->effect->GetStatusID();
+            }
+            else if (g_RuneList.at(1)->element == g_RuneList.at(2)->element)
+            {
+                maxElement = g_RuneList.at(1)->effect->GetStatusID();
+            }
+            else
+            {
+                maxElement = g_RuneList.at(0)->effect->GetStatusID();
+            }
+        }
+        else if (runeCount == 2)
+        {
+            if (g_RuneList.at(0)->element == g_RuneList.at(1)->element)
+            {
+                maxElement = g_RuneList.at(0)->effect->GetStatusID();
+            }
+            else
+            {
+                maxElement = g_RuneList.at(0)->effect->GetStatusID();
+            }
         }
         else
         {
-            maxElement = g_RuneList.at(0)->element;
+            maxElement = g_RuneList.at(0)->effect->GetStatusID();
         }
-    }
-    else if (g_RuneList.size() == 2)
-    {
-        if (g_RuneList.at(0)->element == g_RuneList.at(1)->element)
-        {
-            maxElement = g_RuneList.at(0)->element;
-        }
-        else
-        {
-            maxElement = g_RuneList.at(0)->element;
-        }
-    }
-    else
-    {
-        maxElement = g_RuneList.at(0)->element;
     }
 
     return maxElement;
+}
+
+uint8 CStatusEffectContainer::GetMaxElementCount(EFFECT rune)
+{
+    GetActiveRunes();
+    uint8 maxElementCount = 0;
+    for (uint8 i = 0; i < g_RuneList.size(); i++)
+    {
+       if (g_RuneList.at(i)->effect->GetStatusID() == rune)
+           maxElementCount++;  
+    }
+    return maxElementCount;
 }
 
 void CStatusEffectContainer::RemoveAllRunes()

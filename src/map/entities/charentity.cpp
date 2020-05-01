@@ -1008,9 +1008,14 @@ void CCharEntity::OnAbility(CAbilityState& state, action_t& action)
 
         if (PAbility->isRuneAbility())
         {
+            if (PAbility->getID() >= ABILITY_IGNIS && PAbility->getID() <= ABILITY_TENEBRAE)
+            {
+
+            }
+
             if (PAbility->getID() == ABILITY_VALLATION)
             {
-                uint8 maxElement = StatusEffectContainer->GetMaxRuneElement();
+                uint8 maxElement = StatusEffectContainer->GetMaxRuneEffect();
                 uint16 animationID = 0;
                 switch (maxElement)
                 {

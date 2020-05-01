@@ -90,7 +90,8 @@ public:
     void RemoveAllManeuvers();
 
     uint8 GetActiveRunes();
-    uint8 GetMaxRuneElement();
+    EFFECT GetMaxRuneEffect();
+    uint8 GetMaxElementCount(EFFECT rune);
     void RemoveOldestRune();
     void RemoveAllRunes();
 

@@ -1,5 +1,5 @@
 -----------------------------------
--- Ability: Warcry
+-- Ability: Vallation
 -- Enhances attacks of party members within area of effect.
 -- Obtained: Warrior Level 35
 -- Recast Time: 5:00

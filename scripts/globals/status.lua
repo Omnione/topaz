@@ -1542,11 +1542,13 @@ tpz.mod =
     AGGRESSOR_DURATION              = 955, -- Aggressor Duration
     DEFENDER_DURATION               = 956, -- Defender Duration
 
+    RUNE1                           = 958, -- stores the type of RUNE active (0 if nothing).
+    RUNE2                           = 959, -- stores the type of RUNE active (0 if nothing).
+    RUNE3                           = 960, -- stores the type of RUNE active (0 if nothing).
+    RUNE_DMG                        = 961, -- stores the base damage of the RUNE effect before reductions.
+
     -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     -- 570 - 825 used by WS DMG mods these are not spares.
-    -- SPARE = 958, -- stuff
-    -- SPARE = 959, -- stuff
-    -- SPARE = 960, -- stuff
 }
 
 tpz.latent =
