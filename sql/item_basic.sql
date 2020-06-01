@@ -4619,8 +4619,8 @@ INSERT INTO `item_basic` VALUES (4916,828,'scroll_of_fira','fira',1,34444,29,0,4
 INSERT INTO `item_basic` VALUES (4917,829,'scroll_of_fira_ii','fira_ii',1,34444,29,0,43);
 INSERT INTO `item_basic` VALUES (4918,830,'scroll_of_blizzara','blizzara',1,34444,29,0,43);
 INSERT INTO `item_basic` VALUES (4919,831,'scroll_of_blizzara_ii','blizzara_ii',1,34444,29,0,9520);
-INSERT INTO `item_basic` VALUES (4920,832,'scroll_of_aerora','aerora',1,34444,29,0,43);
-INSERT INTO `item_basic` VALUES (4921,833,'scroll_of_aerora_ii','aerora_ii',1,34444,29,0,43);
+INSERT INTO `item_basic` VALUES (4920,832,'scroll_of_aera','aera',1,34444,29,0,43);
+INSERT INTO `item_basic` VALUES (4921,833,'scroll_of_aera_ii','aera_ii',1,34444,29,0,43);
 INSERT INTO `item_basic` VALUES (4922,834,'scroll_of_stonera','stonera',1,34444,29,0,43);
 INSERT INTO `item_basic` VALUES (4923,835,'scroll_of_stonera_ii','stonera_ii',1,34444,29,0,43);
 INSERT INTO `item_basic` VALUES (4924,836,'scroll_of_thundara','thundara',1,34444,29,0,43);
