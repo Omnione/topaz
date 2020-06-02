@@ -4,7 +4,6 @@
 -- Obtained: Geomancer Level 50
 -- Recast Time: 10 minutes 
 -- Grants your luopan 25% of your current HP.
--- Grants your luopan 25% of your current HP.
 -- The HP lost is not affected by gear or job points.
 -- You also subsequently cannot kill yourself using this JA.
 -- The increase in Life Cycle potency from Job points is applied in the same set as equipment bonuses.
