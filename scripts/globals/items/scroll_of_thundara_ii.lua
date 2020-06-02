@@ -1,7 +1,7 @@
 -----------------------------------------
--- ID: 4706
--- Scroll of Enlight
--- Teaches the white magic Enlight
+-- ID: 4925
+-- Scroll of Thundara II
+-- Teaches the black magic Thundara II
 -----------------------------------------
 
 function onItemCheck(target)

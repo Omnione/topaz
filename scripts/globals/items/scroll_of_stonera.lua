@@ -1,7 +1,7 @@
 -----------------------------------------
--- ID: 4706
--- Scroll of Enlight
--- Teaches the white magic Enlight
+-- ID: 4922
+-- Scroll of Stonera
+-- Teaches the black magic Stonera
 -----------------------------------------
 
 function onItemCheck(target)

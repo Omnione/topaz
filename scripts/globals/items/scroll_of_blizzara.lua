@@ -1,7 +1,7 @@
 -----------------------------------------
--- ID: 4706
--- Scroll of Enlight
--- Teaches the white magic Enlight
+-- ID: 4918
+-- Scroll of Blizzara
+-- Teaches the black magic Blizzara
 -----------------------------------------
 
 function onItemCheck(target)

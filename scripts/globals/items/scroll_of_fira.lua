@@ -1,7 +1,7 @@
 -----------------------------------------
--- ID: 4706
--- Scroll of Enlight
--- Teaches the white magic Enlight
+-- ID: 4916
+-- Scroll of Fira
+-- Teaches the black magic Fira
 -----------------------------------------
 
 function onItemCheck(target)
