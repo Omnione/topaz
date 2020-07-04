@@ -117,4 +117,5 @@ INSERT INTO `pet_list` VALUES (72, 'StormwakerFrame', 5127, 1, 99, 0, 0);
 -- INSERT INTO `pet_list` VALUES (73, 'AdventuringFellow', 0, 1, 99, 0, 0);
 -- 74 is Chocobo in the enum..
 INSERT INTO `pet_list` VALUES (75, 'Luopan', 6040, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (76, 'minion', 7000, 1, 99, 0, 0);
 

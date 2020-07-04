@@ -19,6 +19,8 @@ tpz.pet.type =
     AUTOMATON          = 4,
     ADVENTURING_FELLOW = 5,
     CHOCOBO            = 6,
+    TRUST              = 7,
+    MINION             = 8,
 }
 
 
@@ -85,6 +87,8 @@ tpz.pet.id =
 
     --  Puppetmaster
     AUTOMATON             = 69,
+
+    MINION                = 76,
 }
 
 -----------------------------------

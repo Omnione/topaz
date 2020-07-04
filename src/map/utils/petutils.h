@@ -59,7 +59,8 @@ enum PETID
 
     // Trusts are 896 and above
     // PETID_SHANTOTTO          = 896
-    PETID_SHANTOTTO          = 75
+    PETID_SHANTOTTO          = 75,
+    PETID_MINION             = 76
     // Todo: change how this works so trusts don't need PetID at all..
 };
 
@@ -74,6 +75,7 @@ namespace petutils
 	void FreePetList();
 
 	void SpawnPet(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
+    void SpawnMinion(CBattleEntity* PMaster, uint32 ModelID, bool spawningFromZone);
     void SpawnMobPet(CBattleEntity* PMaster, uint32 PetID);
     void SpawnTrust(CCharEntity * PMaster, uint32 TrustID);
     void DetachPet(CBattleEntity* PMaster);
@@ -83,6 +85,7 @@ namespace petutils
     int16 PerpetuationCost(uint32 id, uint8 level);
     void Familiar(CBattleEntity* PPet);
     void LoadPet(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone);
+    void LoadMinion(CBattleEntity* PMaster, uint32 ModelID, bool spawningFromZone);
     void LoadWyvernStatistics(CBattleEntity* PMaster, CPetEntity* PPet, bool finalize);
     void FinalizePetStatistics(CBattleEntity* PMaster, CPetEntity* PPet);
     bool CheckPetModType(CBattleEntity* PPet, PetModType petmod);

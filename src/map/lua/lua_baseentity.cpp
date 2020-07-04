@@ -12088,6 +12088,33 @@ inline int32 CLuaBaseEntity::spawnTrust(lua_State *L)
 }
 
 /************************************************************************
+*  Function: spawnMinion()
+*  Purpose : Spawns a Minion if a few correct conditions are met
+*  Example : player:spawnMinion(minionStyle[1].model)
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::spawnMinion(lua_State* L)
+{
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    TPZ_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC); // only PCs can spawn minions
+
+    uint8 modelSize = 0;
+
+    if (!lua_isnil(L, 1) && lua_isstring(L, 1))
+    {
+        uint32 modelID = (uint32)lua_tointeger(L, 1);
+
+        petutils::SpawnMinion((CCharEntity*)m_PBaseEntity, modelID, false);
+    }
+    else
+    {
+        ShowError(CL_RED"CLuaBaseEntity::spawnMinion : ModelID is NULL\n" CL_RESET);
+    }
+    return 0;
+}
+
+/************************************************************************
 *  Function: despawnPet()
 *  Purpose : Despawns a Pet Entity
 *  Example : target:despawnPet()
@@ -14731,6 +14758,8 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateAttachments),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity, spawnTrust),
+
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity, spawnMinion),
 
     // Mob Entity-Specific
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setMobLevel),

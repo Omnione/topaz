@@ -89,6 +89,9 @@ std::string CPetEntity::GetScriptName()
         case PETTYPE_TRUST:
             return (const char*)GetName();
             break;
+        case PETTYPE_MINION:
+            return "minion";
+            break;
         default:
             return "";
             break;
