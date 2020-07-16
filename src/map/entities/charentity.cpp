@@ -723,7 +723,7 @@ void CCharEntity::OnCastFinished(CMagicState& state, action_t& action)
         for (auto&& actionTarget : actionList.actionTargets)
         {
             if (actionTarget.param > 0 && PSpell->dealsDamage() && PSpell->getSpellGroup() == SPELLGROUP_BLUE &&
-                StatusEffectContainer->HasStatusEffect(EFFECT_CHAIN_AFFINITY) &&
+                StatusEffectContainer->HasStatusEffect(EFFECT_CHAIN_AFFINITY) || StatusEffectContainer->HasStatusEffect(EFFECT_AZURE_LORE) &&
                 static_cast<CBlueSpell*>(PSpell)->getPrimarySkillchain() != 0)
             {
                 auto PBlueSpell = static_cast<CBlueSpell*>(PSpell);
@@ -743,7 +743,10 @@ void CCharEntity::OnCastFinished(CMagicState& state, action_t& action)
                 }
                 else
                 {
-                    health.tp = 0;
+                    if (!StatusEffectContainer->HasStatusEffect(EFFECT_AZURE_LORE))
+                    {
+                        health.tp = 0;
+                    }
                 }
 
                 StatusEffectContainer->DelStatusEffectSilent(EFFECT_CHAIN_AFFINITY);

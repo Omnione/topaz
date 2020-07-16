@@ -676,7 +676,7 @@ function calculateMagicBurst(caster, spell, target, params)
     local skillchainburst = 1.0
     local modburst = 1.0
 
-    if (spell:getSpellGroup() == 3 and not caster:hasStatusEffect(tpz.effect.BURST_AFFINITY)) then
+    if (spell:getSpellGroup() == 3 and not caster:hasStatusEffect(tpz.effect.BURST_AFFINITY) and not caster:hasStatusEffect(tpz.effect.AZURE_LORE)) then
         return burst
     end
 
