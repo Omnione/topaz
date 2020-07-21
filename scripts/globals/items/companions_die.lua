@@ -5,9 +5,9 @@
 -----------------------------------------
 
 function onItemCheck(target)
-    return target:canLearnAbility(tpz.jobAbility.COMPANION_S_ROLL)
+    return target:canLearnAbility(tpz.jobAbility.COMPANIONS_ROLL)
 end
 
 function onItemUse(target)
-    target:addLearnedAbility(tpz.jobAbility.COMPANION_S_ROLL)
+    target:addLearnedAbility(tpz.jobAbility.COMPANIONS_ROLL)
 end
