@@ -1532,6 +1532,26 @@ void CStatusEffectContainer::TickAuras(time_point tick)
                                 }
                             });
                         }
+                        else if (PEntity->objtype == TYPE_TRUST && PEntity->PMaster)
+                        {
+                            PEntity->PMaster->ForParty([&](CBattleEntity* PMember)
+                            {
+                                if (PMember != nullptr && PEntity->loc.zone->GetID() == PMember->loc.zone->GetID() &&
+                                    distance(m_POwner->loc.p, PMember->loc.p) <= auraRadius)
+                                {
+                                    if (!PMember->isDead())
+                                    {
+                                       CStatusEffect* PEffect = new CStatusEffect(
+                                            (EFFECT)PStatusEffect->GetSubID(), // Effect ID
+                                            (uint16)PStatusEffect->GetSubID(), // Effect Icon (Associated with ID)
+                                            potency, // Power
+                                            3,       // Tick
+                                            4);      // Duration
+                                        PMember->StatusEffectContainer->AddStatusEffect(PEffect, true);
+                                    }
+                                }
+                            });
+                        }
                         else
                         {
                             // Player only or Entity with players allegiance targeting players with no party.
