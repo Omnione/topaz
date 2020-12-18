@@ -154,12 +154,14 @@ public:
 
     void      PostTick() override;
     float     GetRoamDistance();
-    float     GetRoamRate();
+    float GetRoamRate();
+    
     virtual bool ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags) override;
 
     virtual void HandleErrorMessage(std::unique_ptr<CBasicPacket>&) override {}
     virtual void Die() override;
 
+    virtual void OnAbility(CAbilityState& state, action_t& action);
     virtual void OnWeaponSkillFinished(CWeaponSkillState&, action_t&) override;
     virtual void OnMobSkillFinished(CMobSkillState&, action_t&);
     virtual void OnEngage(CAttackState&) override;

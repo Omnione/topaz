@@ -1,4 +1,5 @@
-﻿/*
+﻿#include "mob_controller.h"
+/*
 ===========================================================================
 
 Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -35,6 +36,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include "../../utils/battleutils.h"
 #include "../../../common/utils.h"
 #include "../../utils/petutils.h"
+#include "../../recast_container.h"
 
 CMobController::CMobController(CMobEntity* PEntity) :
     CController(PEntity),
@@ -943,6 +945,23 @@ bool CMobController::MobSkill(uint16 targid, uint16 wsid)
     {
         FaceTarget(targid);
         return POwner->PAI->Internal_MobSkill(targid, wsid);
+    }
+
+    return false;
+}
+
+bool CMobController::Ability(uint16 targid, uint16 abilityid)
+{
+    TracyZoneScoped;
+
+    if (static_cast<CMobEntity*>(POwner)->PRecastContainer->HasRecast(RECAST_ABILITY, abilityid, 0))
+    {
+        return false;
+    }
+
+    if (POwner->PAI->CanChangeState())
+    {
+        return POwner->PAI->Internal_Ability(targid, abilityid);
     }
 
     return false;

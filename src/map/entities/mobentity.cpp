@@ -1,4 +1,5 @@
-﻿/*
+﻿#include "mobentity.h"
+/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -29,6 +30,7 @@
 #include "../ai/helpers/pathfind.h"
 #include "../ai/helpers/targetfind.h"
 #include "../ai/states/attack_state.h"
+#include "../ai/states/ability_state.h"
 #include "../ai/states/weaponskill_state.h"
 #include "../ai/states/mobskill_state.h"
 #include "../entities/charentity.h"
@@ -42,6 +44,7 @@
 #include "../utils/mobutils.h"
 #include "../utils/petutils.h"
 #include "../status_effect_container.h"
+#include "../recast_container.h"
 #include "../enmity_container.h"
 #include "../mob_spell_container.h"
 #include "../mob_spell_list.h"
@@ -481,6 +484,57 @@ float CMobEntity::GetRoamRate()
     return (float)getMobMod(MOBMOD_ROAM_RATE) / 10.0f;
 }
 
+void CMobEntity::OnAbility(CAbilityState& state, action_t& action)
+{
+    auto PAbility = state.GetAbility();
+    auto PTarget = static_cast<CBattleEntity*>(state.GetTarget());
+
+    std::unique_ptr<CBasicPacket> errMsg;
+    if (IsValidTarget(PTarget->targid, PAbility->getValidTarget(), errMsg))
+    {
+        if (this != PTarget && distance(this->loc.p, PTarget->loc.p) > PAbility->getRange())
+        {
+            return;
+        }
+
+        if (battleutils::IsParalyzed(this))
+        {
+            loc.zone->PushPacket(this, CHAR_INRANGE_SELF, new CMessageBasicPacket(this, PTarget, 0, 0, MSGBASIC_IS_PARALYZED));
+            return;
+        }
+
+        action.id = this->id;
+        action.actiontype = PAbility->getActionType();
+        action.actionid = PAbility->getID();
+        action.recast = PAbility->getRecastTime();
+        actionList_t& actionList = action.getNewActionList();
+        actionList.ActionTargetID = PTarget->id;
+        actionTarget_t& actionTarget = actionList.getNewActionTarget();
+        actionTarget.reaction = REACTION_NONE;
+        actionTarget.speceffect = SPECEFFECT_RECOIL;
+        actionTarget.animation = PAbility->getAnimationID();
+        actionTarget.param = 0;
+        auto prevMsg = actionTarget.messageID;
+
+        int32 value = luautils::OnUseAbility(this, PTarget, PAbility, &action);
+        if (prevMsg == actionTarget.messageID)
+            actionTarget.messageID = PAbility->getMessage();
+        if (actionTarget.messageID == 0)
+            actionTarget.messageID = MSGBASIC_USES_JA;
+        actionTarget.param = value;
+
+        if (value < 0)
+        {
+            actionTarget.messageID = ability::GetAbsorbMessage(actionTarget.messageID);
+            actionTarget.param = -value;
+        }
+
+        state.ApplyEnmity();
+
+        PRecastContainer->Add(RECAST_ABILITY, action.actionid, action.recast);
+    }
+}
+
 bool CMobEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
 {
     if (StatusEffectContainer->GetConfrontationEffect() != PInitiator->StatusEffectContainer->GetConfrontationEffect())
@@ -608,6 +662,7 @@ void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
         action.actiontype = ACTION_WEAPONSKILL_FINISH;
     else
         action.actiontype = ACTION_MOBABILITY_FINISH;
+        
     action.actionid = PSkill->getID();
 
     if (PTarget && PAI->TargetFind->isWithinRange(&PTarget->loc.p, distance))
